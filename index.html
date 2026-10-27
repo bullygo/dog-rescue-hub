@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save Dogs Advocacy & Social Campaign Hub</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="[https://cdn.tailwindcss.com"></script]https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .active-tab { border-bottom: 4px solid #ef4444; color: #ef4444; font-weight: bold; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
+
+    <!-- Navigation Header -->
+    <header class="bg-red-600 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 py-6 flex flex-col sm:flex-row justify-between items-center">
+            <div class="flex items-center space-x-3 mb-4 sm:mb-0">
+                <i class="fa-solid fa-dog text-3xl"></i>
+                <div>
+                    <h1 class="text-2xl font-extrabold tracking-tight">Save Dogs Advocacy Hub</h1>
+                    <p class="text-xs text-red-100">Urgent Social Campaigns & Media Outreach Generator</p>
+                </div>
+            </div>
+            <div class="flex space-x-2 text-sm bg-red-700 p-1.5 rounded-lg">
+                <button onclick="switchTab('campaign')" id="tab-campaign" class="px-4 py-2 rounded-md bg-white text-red-700 font-bold shadow transition">
+                    <i class="fa-solid fa-bullhorn mr-1.5"></i> Post Generator
+                </button>
+                <button onclick="switchTab('media')" id="tab-media" class="px-4 py-2 rounded-md text-white font-medium hover:bg-red-600 transition">
+                    <i class="fa-solid fa-tv mr-1.5"></i> Media & TV Pitch
+                </button>
+                <button onclick="switchTab('resources')" id="tab-resources" class="px-4 py-2 rounded-md text-white font-medium hover:bg-red-600 transition">
+                    <i class="fa-solid fa-book-bookmark mr-1.5"></i> Advocacy Guide
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full">
+
+        <!-- TAB 1: SOCIAL CAMPAIGN GENERATOR -->
+        <div id="section-campaign" class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Input Form -->
+            <div class="lg:col-span-5 bg-white p-6 rounded-xl shadow-md border border-slate-200">
+                <h2 class="text-lg font-bold text-slate-900 border-b pb-3 mb-4 flex items-center">
+                    <i class="fa-solid fa-pen-to-square text-red-600 mr-2"></i> Dog & Shelter Details
+                </h2>
+               
+                <form id="dogForm" class="space-y-4" onsubmit="event.preventDefault(); generatePosts();">
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Dog's Name *</label>
+                        <input type="text" id="dogName" placeholder="e.g. Earl, Bertha, Rodney" required
+                            class="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Shelter ID / Tag #</label>
+                            <input type="text" id="shelterId" placeholder="e.g. A5789243"
+                                class="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Breed / Mix</label>
+                            <input type="text" id="dogBreed" placeholder="e.g. Pit Bull Mix, Hound"
+                                class="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Shelter & Location *</label>
+                        <input type="text" id="location" placeholder="e.g. Palmdale, CA / Hempstead, NY" required
+                            class="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Time in Shelter / Urgency</label>
+                        <input type="text" id="shelterTime" placeholder="e.g. 200+ days, Urgent - Capacity Deadline"
+                            class="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Personality Traits & Notes</label>
+                        <textarea id="dogNotes" rows="3" placeholder="e.g. Loves belly rubs, great on leash, knows sit, friendly with dogs"
+                            class="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"></textarea>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg shadow-md transition flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        <span>Generate Multi-Platform Campaign</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Generated Output Area -->
+            <div class="lg:col-span-7 space-y-6">
+                <!-- Facebook Post Card -->
+                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200">
+                    <div class="flex justify-between items-center border-b pb-3 mb-3">
+                        <span class="font-bold text-blue-700 flex items-center">
+                            <i class="fa-brands fa-facebook text-xl mr-2"></i> Facebook High-Impact Post
+                        </span>
+                        <button onclick="copyToClipboard('fbOutput')" class="text-xs bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded font-medium text-slate-700 border">
+                            <i class="fa-regular fa-copy mr-1"></i> Copy Text
+                        </button>
+                    </div>
+                    <div id="fbOutput" class="whitespace-pre-line text-sm text-slate-700 bg-slate-50 p-4 rounded-lg font-sans border border-slate-200 min-h-[160px]">
+Fill out the details on the left and click "Generate" to create a tailored Facebook post with active media tags and urgent headlines!
+                    </div>
+                </div>
+
+                <!-- Instagram & TikTok Reel Script Card -->
+                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200">
+                    <div class="flex justify-between items-center border-b pb-3 mb-3">
+                        <span class="font-bold text-pink-600 flex items-center">
+                            <i class="fa-brands fa-instagram text-xl mr-2"></i> Instagram & Short Video Script
+                        </span>
+                        <button onclick="copyToClipboard('igOutput')" class="text-xs bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded font-medium text-slate-700 border">
+                            <i class="fa-regular fa-copy mr-1"></i> Copy Text
+                        </button>
+                    </div>
+                    <div id="igOutput" class="whitespace-pre-line text-sm text-slate-700 bg-slate-50 p-4 rounded-lg font-sans border border-slate-200 min-h-[140px]">
+Reel scripts and Instagram collaborator tags will generate here...
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: MEDIA & TV PITCH -->
+        <div id="section-media" class="hidden space-y-6">
+            <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200">
+                <h2 class="text-lg font-bold text-slate-900 border-b pb-3 mb-4 flex items-center">
+                    <i class="fa-solid fa-paper-plane text-red-600 mr-2"></i> Long-Term Resident Newsdesk Pitch Email
+                </h2>
+                <p class="text-sm text-slate-600 mb-4">
+                    Send this pre-formatted pitch directly to local TV news assignment desks (e.g. KTLA, ABC7, News12, WGN) to feature long-term residents on "Pet of the Week" segments.
+                </p>
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-xs font-bold uppercase text-slate-500">Ready-to-Send Email Draft</span>
+                    <button onclick="copyToClipboard('emailPitchOutput')" class="text-xs bg-red-50 hover:bg-red-100 text-red-700 font-medium px-3 py-1.5 rounded border border-red-200">
+                        <i class="fa-regular fa-copy mr-1"></i> Copy Email Draft
+                    </button>
+                </div>
+                <div id="emailPitchOutput" class="whitespace-pre-line text-sm text-slate-800 bg-slate-50 p-5 rounded-lg border border-slate-200 font-mono">
+Subject: Urgent Feature Request: [Dog Name] Needs a Lifesaving Feature!
+
+Dear Newsdesk & Community Producers,
+
+I am writing to request a brief feature for [Dog Name] (ID: [ID]), a wonderful dog currently waiting at [Location Shelter].
+
+[Dog Name] has been waiting in a kennel for over [Shelter Time]. Despite being an affectionate, resilient dog, long-term stayers often get overlooked in crowded municipal shelters.
+
+Key Details for a Feature:
+- Name & ID: [Dog Name] (#ID)
+- Location: [Location Shelter]
+- Highlights: [Traits/Notes]
+
+A quick spotlight on your local broadcast or community social channel could be the exact miracle this dog needs to find a loving family.
+
+Thank you for helping us save lives in our community!
+
+Best regards,
+[Your Name / Animal Advocate]
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: ADVOCACY RESOURCES -->
+        <div id="section-resources" class="hidden space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200">
+                    <h3 class="font-bold text-slate-900 border-b pb-2 mb-3 text-red-600">
+                        <i class="fa-solid fa-shield-cat mr-2"></i> ASPCA & AVMA Key Facts
+                    </h3>
+                    <ul class="text-sm text-slate-700 space-y-2 list-disc pl-5">
+                        <li>Breed-Specific Legislation (BSL) does not improve public safety; community education and responsible pet ownership do.</li>
+                        <li>Overcrowded shelters rely heavily on social media amplification to find fosters and adopters out-of-region.</li>
+                        <li>Short-form video clips (Reels/TikTok) increase adoption inquiries by up to 10x compared to static photos.</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200">
+                    <h3 class="font-bold text-slate-900 border-b pb-2 mb-3 text-red-600">
+                        <i class="fa-solid fa-share-nodes mr-2"></i> Algorithmic Reach Tips
+                    </h3>
+                    <ul class="text-sm text-slate-700 space-y-2 list-disc pl-5">
+                        <li><strong>Re-type @ Handles:</strong> When pasting on Facebook or Instagram, re-type the `@` symbol so the social media platform dropdown activates the live tag.</li>
+                        <li><strong>Use Collaborators:</strong> On Instagram, use "Invite Collaborator" with local rescues so the post appears on both feeds simultaneously.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 text-center py-4 text-xs">
+        Save Dogs Advocacy Hub &bull; Empowering Pet Rescuers & Advocates Worldwide
+    </footer>
+
+    <!-- Interactive Script -->
+    <script>
+        function switchTab(tabName) {
+            ['campaign', 'media', 'resources'].forEach(t => {
+                document.getElementById('section-' + t).classList.add('hidden');
+                document.getElementById('tab-' + t).className = "px-4 py-2 rounded-md text-white font-medium hover:bg-red-600 transition";
+            });
+            document.getElementById('section-' + tabName).classList.remove('hidden');
+            document.getElementById('tab-' + tabName).className = "px-4 py-2 rounded-md bg-white text-red-700 font-bold shadow transition";
+        }
+
+        function generatePosts() {
+            const name = document.getElementById('dogName').value || 'This Sweet Pup';
+            const id = document.getElementById('shelterId').value ? `#${document.getElementById('shelterId').value}` : '';
+            const breed = document.getElementById('dogBreed').value || 'Dog';
+            const loc = document.getElementById('location').value || 'Local Shelter';
+            const time = document.getElementById('shelterTime').value || 'Urgent Stay';
+            const notes = document.getElementById('dogNotes').value || 'Loves people, eager to find a home!';
+
+            // Regional Tag Logic
+            let tags = "@KTLA5News @ABC7 @FoxNews @CBSNews #AdoptDontShop #RescueDog #SaveALife";
+            if (loc.toLowerCase().includes('palmdale') || loc.toLowerCase().includes('ca') || loc.toLowerCase().includes('california')) {
+                tags = "@KTLA5News @ABC7LA @Fox11LA @CBSLA @AntelopeValleyPress #PalmdaleDogs #SoCalRescue #AdoptDontShop";
+            } else if (loc.toLowerCase().includes('ny') || loc.toLowerCase().includes('hempstead') || loc.toLowerCase().includes('long island')) {
+                tags = "@News12LI @ABC7NY @NBCNewYork @Fox5NY @CBSNewYork @PIX11News #LongIslandDogs #NYRescue";
+            }
+
+            // FB Output
+            const fbText = `🚨 URGENT: ${name.toUpperCase()} ${id} NEEDS OUR HELP IN ${loc.toUpperCase()}! 🚨\n\nMeet ${name}! This amazing ${breed} is currently waiting at ${loc}. ${name} has been waiting for ${time} and desperately needs a loving home or foster standard before time runs out!\n\n✨ ABOUT ${name.toUpperCase()}:\n${notes}\n\n📍 LOCATION: ${loc}\n🆔 SHELTER ID: ${id}\n\n📲 HOW YOU CAN HELP:\n1. SHARE this post immediately to reach adopters!\n2. Tag local rescues or friends who can foster!\n\n${tags}`;
+
+            // IG Script Output
+            const igText = `🎬 SHORT VIDEO / REEL SCRIPT:\nPOV: You walk past kennel after kennel, and ${name} (${time} in shelter) just looks at you with hopeful eyes...\n\nCAPTION:\n${name} ${id} is waiting at ${loc}! ${notes}.\n\nTagging local partners: ${tags}\n#InviteCollaborator #Adopt${name.replace(/\s+/g, '')}`;
+
+            document.getElementById('fbOutput').innerText = fbText;
+            document.getElementById('igOutput').innerText = igText;
+        }
+
+        function copyToClipboard(elementId) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Copied to clipboard!');
+            });
+        }
+    </script>
+</body>
+</html>
