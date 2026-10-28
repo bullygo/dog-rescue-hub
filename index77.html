@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bully Breed Rescue Hub</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        body { background-color: #f8fafc; color: #1e293b; font-size: 13px; min-height: 100vh; display: flex; flex-direction: column; }
+       
+        /* Header Styling */
+        header { background: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+        .logo-area { display: flex; align-items: center; gap: 8px; }
+        .badge-brand { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; padding: 3px 8px; border-radius: 6px; font-weight: 700; font-size: 11px; }
+        .title { font-weight: 800; color: #0f172a; font-size: 14px; }
+       
+        /* Nav Tabs */
+        nav { display: flex; gap: 4px; background: #f1f5f9; padding: 4px; border-radius: 8px; border: 1px solid #e2e8f0; }
+        .tab-btn { background: transparent; border: none; padding: 6px 12px; border-radius: 6px; font-weight: 600; font-size: 11px; color: #64748b; cursor: pointer; transition: all 0.2s; }
+        .tab-btn.active { background: #d97706; color: #ffffff; font-weight: 700; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+       
+        /* Layout Grid */
+        main { padding: 12px; flex-grow: 1; max-width: 1200px; width: 100%; margin: 0 auto; }
+        .grid-layout { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        @media(min-width: 900px) { .grid-layout { grid-template-columns: 4fr 8fr; } }
+       
+        /* Cards */
+        .card { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 10px; padding: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; margin-bottom: 12px; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f5f9; padding-bottom: 6px; margin-bottom: 8px; font-weight: 700; color: #0f172a; }
+       
+        /* Forms & Inputs */
+        .form-group { margin-bottom: 8px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .form-row-3 { display: grid; grid-template-columns: 2fr 1fr; gap: 8px; }
+        label { display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; color: #64748b; margin-bottom: 3px; }
+        input, select, textarea { width: 100%; background: #f8fafc; border: 1px solid #cbd5e1; padding: 6px 8px; border-radius: 6px; font-size: 12px; outline: none; transition: border-color 0.2s; }
+        input:focus, select:focus, textarea:focus { border-color: #d97706; background: #ffffff; }
+       
+        /* Buttons */
+        .btn-amber { background: linear-gradient(135deg, #d97706, #ea580c); color: #ffffff; border: none; padding: 8px; border-radius: 6px; font-weight: 700; font-size: 12px; cursor: pointer; text-align: center; width: 100%; }
+        .btn-amber:hover { opacity: 0.95; }
+        .btn-sky { background: #0284c7; color: white; border: none; padding: 4px 10px; border-radius: 5px; font-weight: 600; font-size: 11px; cursor: pointer; }
+        .btn-slate { background: #f1f5f9; border: 1px solid #cbd5e1; color: #334155; padding: 4px 10px; border-radius: 5px; font-weight: 600; font-size: 11px; cursor: pointer; }
+       
+        /* Text Outputs */
+        .output-box { white-space: pre-line; background: #f8fafc; border: 1px solid #e2e8f0; padding: 10px; border-radius: 6px; font-size: 11px; line-height: 1.5; color: #334155; max-height: 160px; overflow-y: auto; }
+        .hidden { display: none !important; }
+        footer { border-top: 1px solid #e2e8f0; background: #ffffff; text-align: center; padding: 8px; font-size: 10px; color: #94a3b8; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Header -->
+    <header>
+        <div class="logo-area">
+            <span class="badge-brand">🐾 Bully Hub</span>
+            <span class="title">Rescue & Media Campaign Generator</span>
+        </div>
+        <nav>
+            <button onclick="switchTab('campaign')" id="tab-campaign" class="tab-btn active">Generator</button>
+            <button onclick="switchTab('media')" id="tab-media" class="tab-btn">Media Pitch</button>
+            <button onclick="switchTab('resources')" id="tab-resources" class="tab-btn">Bully Facts</button>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main>
+        <div id="section-campaign" class="grid-layout">
+           
+            <!-- Left Panel: Form -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <span>Dog Profile Details</span>
+                        <span style="font-size: 9px; background: #fef3c7; color: #92400e; padding: 2px 6px; border-radius: 4px;">Auto-Detects TV Handles</span>
+                    </div>
+                   
+                    <form id="dogForm" onsubmit="event.preventDefault(); generatePosts();">
+                        <div class="form-group form-row-3">
+                            <div>
+                                <label>Dog's Name *</label>
+                                <input type="text" id="dogName" placeholder="e.g. Truman, Tank" required>
+                            </div>
+                            <div>
+                                <label>Shelter ID</label>
+                                <input type="text" id="shelterId" placeholder="e.g. A598">
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row">
+                            <div>
+                                <label>Bully Breed</label>
+                                <select id="dogBreed">
+                                    <option value="American Bully">American Bully</option>
+                                    <option value="Pit Bull Terrier">Pit Bull Terrier</option>
+                                    <option value="Staffordshire Terrier">Staffy</option>
+                                    <option value="Bully Mix">Bully Mix</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>Time in Shelter</label>
+                                <input type="text" id="shelterTime" placeholder="e.g. 200+ days">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Shelter & Location *</label>
+                            <input type="text" id="location" placeholder="e.g. Downey Animal Care Center, CA / Hempstead, NY" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Shelter / FB Profile Link</label>
+                            <input type="url" id="dogLink" placeholder="https://facebook.com/... or shelter link">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Personality & Story Notes</label>
+                            <textarea id="dogNotes" rows="2" placeholder="Gentle giant, loves treats, walks great on leash"></textarea>
+                        </div>
+
+                        <button type="button" onclick="generatePosts()" class="btn-amber">Generate Campaign Posts</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Right Panel: Generated Output -->
+            <div>
+                <!-- Facebook Output Card -->
+                <div class="card">
+                    <div>
+                        <div class="card-header">
+                            <span style="color: #0284c7;">📘 Facebook Bully Appeal</span>
+                            <div>
+                                <button type="button" onclick="shareToFacebook()" class="btn-sky">Share to FB</button>
+                                <button type="button" onclick="copyToClipboard('fbOutput', this)" class="btn-slate">Copy Text</button>
+                            </div>
+                        </div>
+                        <div id="fbOutput" class="output-box">
+                            Fill out the details on the left and click "Generate Campaign Posts" to populate your post with auto-detected local TV news handles and direct links!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Instagram Reel Script Card -->
+                <div class="card">
+                    <div>
+                        <div class="card-header">
+                            <span style="color: #db2777;">📸 Instagram Reel Script (Bully POV)</span>
+                            <button type="button" onclick="copyToClipboard('igOutput', this)" class="btn-slate">Copy Text</button>
+                        </div>
+                        <div id="igOutput" class="output-box">
+                            Reel video script and collaborator tag reminders will generate here...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- TAB 2: MEDIA PITCH -->
+        <div id="section-media" class="hidden">
+            <div class="card">
+                <div class="card-header">
+                    <span>Newsroom Pitch Letter Template</span>
+                    <button type="button" onclick="copyToClipboard('emailPitchOutput', this)" class="btn-amber" style="width: auto; padding: 4px 12px;">Copy Pitch Draft</button>
+                </div>
+                <div id="emailPitchOutput" class="output-box" style="max-height: none; font-family: monospace;">Subject: Feature Request: Spotlight on Long-Stay Bully Breeds Waiting in Shelters
+
+Dear Newsroom Desk & Community Producers,
+
+Municipal shelters face critical overcrowding. Wonderful American Bullies and pit bull-type dogs wait the longest despite being loyal companions.
+
+We propose a short TV segment or pet spotlight showcasing a long-term bully breed resident to connect them with local adopters or foster families.
+
+Thank you for being a voice for our community's animals!</div>
+            </div>
+        </div>
+
+        <!-- TAB 3: BULLY FACTS -->
+        <div id="section-resources" class="hidden">
+            <div class="grid-layout" style="grid-template-columns: 1fr 1fr;">
+                <div class="card">
+                    <h4 style="color: #d97706; margin-bottom: 6px;">Bully Breed Temperament</h4>
+                    <p style="color: #475569; line-height: 1.5;">American Bullies and pit bull mixes consistently score exceptionally high on ATTS (American Temperament Test Society) exams. They make loyal, affectionate family pets when given structure and love.</p>
+                </div>
+                <div class="card">
+                    <h4 style="color: #d97706; margin-bottom: 6px;">Algorithmic Reach Tips</h4>
+                    <p style="color: #475569; line-height: 1.5;">When posting on social platforms, manually re-type the `@` handle to trigger dropdown mentions for local TV stations. Use Instagram's "Invite Collaborator" tool to share posts directly onto rescue feeds.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        Bully Breed Rescue Hub &bull; Empowering Animal Advocates
+    </footer>
+
+    <!-- Logic Script -->
+    <script>
+        function switchTab(tabName) {
+            ['campaign', 'media', 'resources'].forEach(t => {
+                document.getElementById('tab-' + t).className = "tab-btn";
+                document.getElementById('section-' + t).classList.add('hidden');
+            });
+            document.getElementById('tab-' + tabName).className = "tab-btn active";
+            document.getElementById('section-' + tabName).classList.remove('hidden');
+        }
+
+        function generatePosts() {
+            const name = document.getElementById('dogName').value.trim() || 'Truman';
+            const idInput = document.getElementById('shelterId').value.trim();
+            const id = idInput ? `#${idInput}` : '';
+            const breed = document.getElementById('dogBreed').value;
+            const loc = document.getElementById('location').value.trim() || 'Downey Animal Care Center';
+            const time = document.getElementById('shelterTime').value.trim() || '200+ days';
+            const link = document.getElementById('dogLink').value.trim();
+            const notes = document.getElementById('dogNotes').value.trim() || 'Gentle giant, loves treats, highly affectionate';
+
+            let mediaTags = "@KTLA5News @ABC7LA @NBCLA @FoxLA @KCALNews @KFIAM640";
+            let rescueGroups = "@LAAnimalServices @DowneyAnimalCareCenter @SoCalBullyCrew";
+
+            const locLower = loc.toLowerCase();
+            if (locLower.includes('rockdale') || locLower.includes('georgia') || locLower.includes('ga') || locLower.includes('atlanta')) {
+                mediaTags = "@WSBTV @FOX5Atlanta @11Alive @AtlantaNewsFirst @955WSB";
+                rescueGroups = "@RockdaleCountyAnimalServices @AtlantaBullyRescue";
+            } else if (locLower.includes('hempstead') || locLower.includes('long island') || locLower.includes('ny')) {
+                mediaTags = "@News12LI @ABC7NY @NBCNewYork @Fox5NY @CBSNewYork";
+                rescueGroups = "@TownOfHempsteadAnimalShelter @LongIslandBullyRescue";
+            }
+
+            const linkSection = link ? `\n🔗 OFFICIAL PROFILE / FB LINK:\n${link}\n` : '';
+
+            const fbText = `🚨 URGENT APPEAL: SAVE ${name.toUpperCase()} ${id}! HIS LIFE DEPENDS ON US! 🚨\n\nThis gorgeous boy is ${name.toUpperCase()}, an incredible ${breed} waiting at ${loc} for ${time}. He urgently needs a hero before time runs out! 💔\n\n✨ NOTES: ${notes}\n📍 LOCATION: ${loc}\n🆔 ID: ${id}\n${linkSection}\n📺 MEDIA & RESCUES (${rescueGroups}), HELP US SPOTLIGHT ${name.toUpperCase()}:\n${mediaTags}\n\n#Save${name.replace(/\s+/g, '')} #Adopt${name.replace(/\s+/g, '')} #AmericanBully #BullyBreedLove #FosterSavesLives`;
+
+            const igText = `🎬 REEL SCRIPT:\nPOV: You walk past kennel rows, and ${name} (${time} in shelter) does a little wiggle-butt dance hoping someone will choose him...\n\nCAPTION: ${name} ${id} is waiting at ${loc}! ${notes}.\n${link ? 'Link in bio / details: ' + link : ''}\n\nTags: ${mediaTags} ${rescueGroups}\n#Adopt${name.replace(/\s+/g, '')} #BullyBreedLove #FosterSavesLives`;
+
+            document.getElementById('fbOutput').innerText = fbText;
+            document.getElementById('igOutput').innerText = igText;
+        }
+
+        function shareToFacebook() {
+            const text = document.getElementById('fbOutput').innerText;
+            const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=&quote=${encodeURIComponent(text)}`;
+            window.open(fbShareUrl, '_blank', 'width=600,height=500');
+        }
+
+        function copyToClipboard(elementId, buttonEl) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const orig = buttonEl.innerText;
+                buttonEl.innerText = "Copied!";
+                setTimeout(() => { buttonEl.innerText = orig; }, 1500);
+            });
+        }
+    </script>
+</body>
+</html>
